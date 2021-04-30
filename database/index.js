@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/summary');
-const summaryData = require('../data.js');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -27,9 +26,8 @@ let save = (summaryData, callback) => {
   Summary.updateOne(query, update, options, callback);
 };
 
+module.exports =  { save, Summary};
 
-
-module.exports = save;
 
 
 
