@@ -1,10 +1,10 @@
 const LoremIpsum = require("lorem-ipsum").LoremIpsum;
-const save = require("./index.js");
+const { save } = require("./index.js");
 
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
     max: 10,
-    min: 7
+    min: 2
   },
   wordsPerSentence: {
     max: 16,
@@ -14,16 +14,16 @@ const lorem = new LoremIpsum({
 
 
 for(let i = 0; i<100; i++){
-  const paragraphLength = Math.floor(Math.random() * 2 + 1);
-  const shortSummarySentenceLength = Math.floor(Math.random() * 3 + 2);
-  const copyrightWordsLength = Math.floor(Math.random() * 2 + 5);
+  const paragraphLength = Math.floor(Math.random() * 3 + 1);
+  const shortSummarySentenceLength = Math.floor(Math.random() * 4 + 3);
+  const copyrightWordsLength = Math.floor(Math.random() * 2 + 2);
   // console.log(paragraphLength, shortSummarySentenceLength, copyrightWordsLength);
 
   const summary = lorem.generateParagraphs(paragraphLength);
   const short_summary = lorem.generateSentences(shortSummarySentenceLength);
   const year = Math.floor(Math.random() * 81) + 1940;
 
-  const copyright = '©' + year + ' ' + lorem.generateWords(copyrightWordsLength);
+  const copyright = '©' + year + ' ' + lorem.generateWords(copyrightWordsLength) + ' (P)'+(year + Math.floor(Math.random() * 4 + 3)) + ' ' + lorem.generateWords(copyrightWordsLength);
 
   const summaryData = {
     id: i,
