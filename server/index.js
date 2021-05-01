@@ -13,11 +13,6 @@ app.get('/', (req, res) => {
   res.end();
 });
 
-// app.get('/summary', async (req, res) => {
-//   const book = await db.findBookId(req.params.bookId);
-//   res.send(JSON.stringify(book.dataValues));
-// });
-
 app.get('/api/summary/:bookId', async (req, res) => {
   await db.Summary.find({'id': req.params.bookId}).exec((err, result) => {
     // console.log("this is the response from the server:", result)
