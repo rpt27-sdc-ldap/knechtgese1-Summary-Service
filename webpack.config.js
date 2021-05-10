@@ -1,23 +1,31 @@
-var path = require('path');
-var SRC_DIR = path.join(__dirname, '/client/src');
-var DIST_DIR = path.join(__dirname, '/client/dist');
-
 module.exports = {
-  entry: ['babel-regenerator-runtime', `${SRC_DIR}/index.jsx`],
+  entry: './client/src/index.jsx',
   output: {
-    filename: 'bundle.js',
-    path: DIST_DIR
+    path: __dirname + '/client/dist',
+    publicPath: '/',
+    filename: 'summary.js'
   },
-  module : {
-    loaders : [
+  // devServer: {
+  //   contentBase: './client/dist',
+  // },
+  mode: 'development',
+  devtool: 'source-map',
+  module: {
+    rules: [
       {
-        test : /\.jsx?/,
-        include : SRC_DIR,
-        loader : 'babel-loader',
-        query: {
-          presets: ['react', 'es2015']
-        }
-      }
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        //use: ['babel-loader']
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.less$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'less-loader' }
+        ]
+      },
     ]
-  }
+  },
 };

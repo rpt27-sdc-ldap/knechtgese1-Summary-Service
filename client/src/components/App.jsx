@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+//import "../style/main.less";
 import Summary from './Summary.jsx';
 
 class App extends React.Component {
@@ -62,3 +63,5 @@ class App extends React.Component {
 
 
 export default App;
+
+//module.exports = App;
