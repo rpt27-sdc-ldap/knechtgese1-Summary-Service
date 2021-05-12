@@ -17,16 +17,8 @@ let summarySchema = new mongoose.Schema({
 let Summary = mongoose.model('Summary', summarySchema);
 Summary.createIndexes();
 
+module.exports =  { Summary, mongoose, db};
 
-
-let save = (summaryData, callback) => {
-  const query = { "id": summaryData.id };
-  const update = { $set: {"id": summaryData.id, "summary": summaryData.summary, "short_summary": summaryData.short_summary, "copyright": summaryData.copyright } };
-  const options = { upsert: true };
-  Summary.updateOne(query, update, options, callback);
-};
-
-module.exports =  { save, Summary};
 
 
 

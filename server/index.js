@@ -14,16 +14,18 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/api/summary/:bookId', async (req, res) => {
+app.get('/api/summary/:bookId', async (req, res, next) => {
   await db.Summary.find({'id': req.params.bookId}).exec((err, result) => {
     // console.log("this is the response from the server:", result)
     if (err) {
-      console.log(err);
+      next(err)
     } else {
       res.send(result);
     }
   })
 });
+
+
 
 // [ids]//http://localhost:1220/api/summaries/1,2,3,4,5
 // app.get('/api/summaries/:bookIds', async (req, res) => {
@@ -41,6 +43,10 @@ app.get('/api/summary/:bookId', async (req, res) => {
 
 let port = process.env.port || 1220;
 
+if(!module.parent){
 app.listen(port, function () {
   console.log(`listening on port ${port}`);
 });
+};
+
+module.exports = app;
