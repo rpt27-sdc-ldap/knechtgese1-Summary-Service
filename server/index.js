@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../database/index.js');
-//const Summary = require('../database/index.js');
 
 let app = express();
 
@@ -18,27 +17,23 @@ app.get('/api/summary/:bookId', async (req, res, next) => {
   await db.Summary.find({'id': req.params.bookId}).exec((err, result) => {
     // console.log("this is the response from the server:", result)
     if (err) {
-      next(err)
+      res.send(err);
     } else {
       res.send(result);
     }
   })
 });
 
-
-
-// [ids]//http://localhost:1220/api/summaries/1,2,3,4,5
-// app.get('/api/summaries/:bookIds', async (req, res) => {
-//   const ids = req.params.bookIds.split(',');
-//   await db.Summary.find({ id: { $in: ids } }).exec((err, result) => {
-//     // console.log("this is the response from the server:", result)
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.send(result);
-//     }
-//   })
-// });
+app.get('/api/summaries/:bookIds', async (req, res) => {
+  const ids = req.params.bookIds.split(',');
+  await db.Summary.find({ id: { $in: ids } }).exec((err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  })
+});
 
 
 let port = process.env.port || 1220;
