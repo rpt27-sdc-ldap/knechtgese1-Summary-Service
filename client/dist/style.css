@@ -12,6 +12,7 @@ body {
   text-align: "center";
   line-height: 20px;
   margin: 2.5%;
+  line-height: 1.4;
 }
 
 h2 {
@@ -19,6 +20,7 @@ h2 {
    font-size: 20px;
    font-weight: 700;
    line-height: 26px;
+   margin-bottom: -5px;
 }
 
 

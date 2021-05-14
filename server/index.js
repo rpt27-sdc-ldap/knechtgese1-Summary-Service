@@ -15,20 +15,20 @@ app.get('/', (req, res) => {
 
 app.get('/api/summary/:bookId', async (req, res, next) => {
   await db.Summary.find({'id': req.params.bookId}).exec((err, result) => {
-    // console.log("this is the response from the server:", result)
     if (err) {
-      res.send(err);
+      next(err);
     } else {
       res.send(result);
     }
   })
 });
 
+
 app.get('/api/summaries/:bookIds', async (req, res) => {
   const ids = req.params.bookIds.split(',');
   await db.Summary.find({ id: { $in: ids } }).exec((err, result) => {
     if (err) {
-      res.send(err);
+      next(err);
     } else {
       res.send(result);
     }

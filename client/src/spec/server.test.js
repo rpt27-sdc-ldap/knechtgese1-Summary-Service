@@ -30,9 +30,9 @@ describe("Testing the summary api", () => {
 
   it("get endpoint should return HTTP 500 when db fails", async () => {
     mockingoose(Summary).toReturn(new Error('database error'), 'find');
-		await request(app).get('/api/summary/:12').expect(200).
+		await request(app).get('/api/summary/:12').expect(500).
     then((response) => {
-      expect(JSON.parse(response.text)).toMatchObject({});
+      expect(response).toMatchObject({});
     });
 	});
 
