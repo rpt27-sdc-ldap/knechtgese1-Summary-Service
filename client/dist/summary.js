@@ -38,7 +38,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
- //import "../style/main.less";
 
 
 
@@ -61,41 +60,32 @@ var App = /*#__PURE__*/function (_React$Component) {
 
   _createClass(App, [{
     key: "componentDidMount",
-    value: // setParam() {
-    //   const bookId = Math.floor(Math.random() * 100);
-    //   const param = Math.random() * bookId;
-    // };
-    function componentDidMount() {
-      this.getData();
+    value: function componentDidMount() {
+      this.getBookSummary();
     }
   }, {
-    key: "getData",
-    value: function getData(bookId) {
+    key: "getBookSummary",
+    value: function getBookSummary() {
       var _this2 = this;
 
-      bookId = Math.floor(Math.random() * 100); //console.log('gettingbook Summary data');
-
-      fetch("http://localhost:1220/api/summary/".concat(bookId)).then(function (response) {
+      var query = new URLSearchParams(location.search);
+      var id = query.get('bookId');
+      fetch("http://localhost:1220/api/summary/".concat(id)).then(function (response) {
         return response.json();
-      }).then(function (response) {
+      }).then(function (data) {
         return _this2.setState({
-          summaries: response
-        }).bind(_this2);
+          summaries: data
+        });
       })["catch"](function (err) {
         return err;
       });
-    } //     let url: '',
-    //     reques = $.ajax({
-    //       url: url,
-    //       method: 'GET'
-    //     });
-    //     request.done(function (result) {
-    //     console.log('This is the result coming from the server', result)
-    //     this.setState({
-    //       summary: result
-    //     });
-    //   });
-    // }
+    } //  getData(bookId) {
+    //     //bookId = Math.floor(Math.random() * 100);
+    //     fetch(`http://localhost:1220/api/summary/${bookId}`)
+    //       .then(response => response.json())
+    //       .then(response => this.setState({ summaries: response }))
+    //       .catch(err => err)
+    //   }
 
   }, {
     key: "render",
@@ -107,10 +97,9 @@ var App = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return App;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component); // ReactDOM.render(<App />, document.getElementById('app'));
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App); //module.exports = App;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 
 /***/ }),
 
@@ -28770,17 +28759,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _components_App_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/App.jsx */ "./client/src/components/App.jsx");
 
- //import './style/main.less';
 
- // class App extends React.Component {
-// render() {
-//   return (
-//       <App />
-//    );
-// };
-// }
 
-react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_App_jsx__WEBPACK_IMPORTED_MODULE_2__.default, null), document.getElementById('app'));
+react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_App_jsx__WEBPACK_IMPORTED_MODULE_2__.default, null), document.getElementById('summary'));
 })();
 
 /******/ })()

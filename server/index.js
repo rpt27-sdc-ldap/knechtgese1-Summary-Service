@@ -8,10 +8,6 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-  res.end();
-});
-
 
 app.get('/api/summary/:bookId', async (req, res, next) => {
   await db.Summary.find({'id': req.params.bookId}).exec((err, result) => {
@@ -24,8 +20,8 @@ app.get('/api/summary/:bookId', async (req, res, next) => {
 });
 
 
-app.get('/api/summaries/:bookIds', async (req, res) => {
-  const ids = req.params.bookIds.split(',');
+app.get('/api/summaries/:ids', async (req, res) => {
+  const ids = req.params.ids.split(',');
   await db.Summary.find({ id: { $in: ids } }).exec((err, result) => {
     if (err) {
       next(err);

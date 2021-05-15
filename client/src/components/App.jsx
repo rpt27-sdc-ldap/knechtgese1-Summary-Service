@@ -11,16 +11,27 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.getData();
+    this.getBookSummary();
   }
 
- getData(bookId) {
-    bookId = Math.floor(Math.random() * 100);
-    fetch(`http://localhost:1220/api/summary/${bookId}`)
-      .then(response => response.json())
-      .then(response => this.setState({ summaries: response }))
+  getBookSummary(){
+  const query = new URLSearchParams(location.search);
+  const id = query.get('bookId');
+  fetch(`http://localhost:1220/api/summary/${id}`)
+    .then((response) => response.json())
+    .then(data =>
+      this.setState({summaries: data}))
       .catch(err => err)
-  }
+    }
+
+
+//  getData(bookId) {
+//     //bookId = Math.floor(Math.random() * 100);
+//     fetch(`http://localhost:1220/api/summary/${bookId}`)
+//       .then(response => response.json())
+//       .then(response => this.setState({ summaries: response }))
+//       .catch(err => err)
+//   }
 
   render() {
     return (
