@@ -12,7 +12,6 @@ const Summary = (props) => (
      )
     })
   }
-
   </div>
   );
 

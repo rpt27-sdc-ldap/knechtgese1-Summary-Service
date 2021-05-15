@@ -27,7 +27,7 @@ it('should render Publisher\'s summary information', () => {
     "summary": "this is summary"
 }
   const wrapper = shallow(<BookSummary summary={summary} key={"10"}/>);
-  const summarySpan = wrapper.find('span.summary-detail')
+  const summarySpan = wrapper.find('span.normal')
   const summaryResult = summarySpan.text();
   expect(summaryResult).toBe("this is summary");
 
