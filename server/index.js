@@ -4,7 +4,7 @@ const db = require('../database/index.js');
 
 let app = express();
 
-app.use(express.static(__dirname + '/../client/dist'));
+app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -20,8 +20,8 @@ app.get('/api/summary/:bookId', async (req, res, next) => {
 });
 
 
-app.get('/api/summaries/:ids', async (req, res) => {
-  const ids = req.params.ids.split(',');
+app.get('/api/summaries/:bookIds', async (req, res) => {
+  const ids = req.params.bookIds.split(',');
   await db.Summary.find({ id: { $in: ids } }).exec((err, result) => {
     if (err) {
       next(err);
