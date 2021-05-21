@@ -1,7 +1,7 @@
 module.exports = {
   entry: './client/src/index.jsx',
   output: {
-    path: __dirname + '/client/dist',
+    path: __dirname + '/public',
     publicPath: '/',
     filename: 'summary.js'
   },
@@ -17,6 +17,16 @@ module.exports = {
         exclude: /node_modules/,
         //use: ['babel-loader']
         loader: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader', 'css-loader', 'sass-loader'
+        ]
       },
       {
         test: /\.less$/,

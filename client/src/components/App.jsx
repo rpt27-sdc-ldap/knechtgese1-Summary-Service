@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Summary from './Summary.jsx';
+import '../assets/styles.scss';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,22 +17,12 @@ class App extends React.Component {
 
   getBookSummary(){
   const query = new URLSearchParams(location.search);
-  const id = query.get('bookId');
-  fetch(`http://localhost:1220/api/summary/${id}`)
+  const bookId = query.get('bookId');
+  fetch(`http://localhost:1220/api/summary/${bookId}`)
     .then((response) => response.json())
-    .then(data =>
-      this.setState({summaries: data}))
-      .catch(err => err)
+    .then(data =>this.setState({summaries: data}))
+    .catch(err => err)
     }
-
-
-//  getData(bookId) {
-//     //bookId = Math.floor(Math.random() * 100);
-//     fetch(`http://localhost:1220/api/summary/${bookId}`)
-//       .then(response => response.json())
-//       .then(response => this.setState({ summaries: response }))
-//       .catch(err => err)
-//   }
 
   render() {
     return (

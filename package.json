@@ -11,6 +11,8 @@
     "react-dev": "webpack --mode development --watch",
     "server-dev": "nodemon server/index.js",
     "babel-compile": "npx babel . --out-dir compiled --presets=@babel/preset-react --ignore=node_modules,compiled --source-maps inline",
+    "sass-dev": "sass --watch client/assets/styles.scss public/styles.css",
+    "sass-prod": "sass client/assets/styles.scss public/styles.css",
     "start": "node server/index.js",
     "test": "jest"
   },
@@ -19,6 +21,7 @@
     "@shelf/jest-mongodb": "^1.2.4",
     "@syncfusion/ej2-react-splitbuttons": "^19.1.59",
     "body-parser": "^1.17.0",
+    "cross-env": "^7.0.3",
     "dompurify": "^2.2.8",
     "enzyme-to-json": "^3.6.2",
     "express": "^4.17.1",
@@ -32,7 +35,9 @@
     "react": "^16.14.0",
     "react-dev": "^0.0.1",
     "react-dom": "^16.4.0",
-    "react-test-renderer": "^16.4.0"
+    "react-test-renderer": "^16.4.0",
+    "sass": "^1.33.0",
+    "sass-loader": "^11.1.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.14.0",
