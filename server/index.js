@@ -1,8 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const db = require('../database/index.js');
 
 let app = express();
+
+
+const corsOpts = {
+  origin: 'http://localhost:5500',
+  optionsSuccessStatus: 200
+};
 
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser.json());
@@ -36,7 +43,7 @@ let port = process.env.port || 1220;
 
 if(!module.parent){
 app.listen(port, function () {
-  console.log(`listening on port ${port}`);
+  console.log(`listening on port ${port}.CORS enabled from port 5500`);
 });
 };
 
