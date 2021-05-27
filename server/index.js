@@ -38,7 +38,7 @@ let port = process.env.port || 1220;
 
 if(!module.parent){
 app.listen(port, function () {
-  console.log(`listening on port ${port}.CORS enabled from port 3300`);
+  console.log(`listening on port ${port}`);
 });
 };
 
