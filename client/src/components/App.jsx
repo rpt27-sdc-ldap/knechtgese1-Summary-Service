@@ -1,8 +1,8 @@
-import React,  {lazy, Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-const Summary = lazy(() => import('./Summary.jsx'));
+import Summary from './Summary.jsx';
 import '../assets/styles.scss';
-const renderLoader = () => <p>Loading</p>;
+
 
 class App extends React.Component {
   constructor(props) {
@@ -19,7 +19,8 @@ class App extends React.Component {
   getBookSummary(){
   const query = new URLSearchParams(location.search);
   const bookId = query.get('bookId');
-  fetch(`http://18.188.135.5:1220/api/summary/${bookId}`)
+  // 18.188.135.5
+  fetch(`http://localhost:1220/api/summary/${bookId}`)
     .then((response) => response.json())
     .then(data =>this.setState({summaries: data}))
     .catch(err => err)
@@ -33,11 +34,9 @@ class App extends React.Component {
       )
     } else {
     return (
-      <Suspense fallback={renderLoader()}>
       <div>
         <Summary summaries={this.state.summaries} />
       </div>
-      </Suspense>
      );
   }
 }
