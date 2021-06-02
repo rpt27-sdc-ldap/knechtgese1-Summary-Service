@@ -24,7 +24,6 @@ for(let i = 0; i<100; i++){
   const paragraphLength = Math.floor(Math.random() * 2 + 2);
   const shortSummarySentenceLength = Math.floor(Math.random() * 4 + 3);
   const copyrightWordsLength = Math.floor(Math.random() * 2 + 2);
-  // console.log(paragraphLength, shortSummarySentenceLength, copyrightWordsLength);
 
   const summary = lorem.generateParagraphs(paragraphLength);
   const short_summary = lorem.generateSentences(shortSummarySentenceLength);
