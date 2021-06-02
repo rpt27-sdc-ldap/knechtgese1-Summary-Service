@@ -14,9 +14,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var _Summary_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Summary.jsx */ "./client/src/components/Summary.jsx");
-/* harmony import */ var _assets_styles_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../assets/styles.scss */ "./client/src/assets/styles.scss");
-/* harmony import */ var _assets_styles_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_assets_styles_scss__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _assets_styles_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/styles.scss */ "./client/src/assets/styles.scss");
+/* harmony import */ var _assets_styles_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_assets_styles_scss__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41,8 +40,14 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+var Summary = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
+  return __webpack_require__.e(/*! import() */ "client_src_components_BookSummary_jsx-client_src_components_Summary_jsx").then(__webpack_require__.bind(__webpack_require__, /*! ./Summary.jsx */ "./client/src/components/Summary.jsx"));
+});
 
 
+var renderLoader = function renderLoader() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Loading");
+};
 
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
@@ -73,7 +78,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       var query = new URLSearchParams(location.search);
       var bookId = query.get('bookId');
-      fetch("http://localhost:1220/api/summary/".concat(bookId)).then(function (response) {
+      fetch("http://18.188.135.5:1220/api/summary/".concat(bookId)).then(function (response) {
         return response.json();
       }).then(function (data) {
         return _this2.setState({
@@ -86,9 +91,22 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Summary_jsx__WEBPACK_IMPORTED_MODULE_2__.default, {
-        summaries: this.state.summaries
-      }));
+      if (this.state.summaries.length <= 0) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          style: {
+            color: "blue",
+            padding: "25px",
+            fontFamily: "Arial",
+            textalign: "center"
+          }
+        }, "The Book you requested is not available. Please try another book!");
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Suspense, {
+          fallback: renderLoader()
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Summary, {
+          summaries: this.state.summaries
+        })));
+      }
     }
   }]);
 
@@ -96,104 +114,6 @@ var App = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
-
-/***/ }),
-
-/***/ "./client/src/components/BookSummary.jsx":
-/*!***********************************************!*\
-  !*** ./client/src/components/BookSummary.jsx ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Summary_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Summary.jsx */ "./client/src/components/Summary.jsx");
-
-
-
-
-function changeClass() {
-  var content = document.getElementById("extra_content");
-  var btn = document.getElementById("read_more");
-  content.classList.toggle('show');
-
-  if (content.classList.contains("show")) {
-    btn.innerHTML = "Show less" + '▴';
-    document.getElementById("main").classList.remove("normal");
-  } else {
-    btn.innerHTML = "Show more" + '▾';
-    document.getElementById("main").classList.add("normal");
-  }
-}
-
-var BookSummary = function BookSummary(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "summary"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
-    className: "summary-heading"
-  }, "Publisher's Summary"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "publisher-summary"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-    id: "main",
-    className: "summary-detail normal"
-  }, props.summary.summary.split('\n').map(function (str, index) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-      key: index
-    }, str);
-  }).slice(0, 1)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-    id: "extra_content",
-    className: "extra_content"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-    className: "summary-detail hidden"
-  }, props.summary.summary.split('\n').map(function (str, index) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-      key: index
-    }, str);
-  }).slice(1)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-    className: "copyright"
-  }, props.summary.copyright)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    id: "read_more",
-    className: "read_more",
-    onClick: changeClass
-  }, " Show More ")));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BookSummary);
-
-/***/ }),
-
-/***/ "./client/src/components/Summary.jsx":
-/*!*******************************************!*\
-  !*** ./client/src/components/Summary.jsx ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _BookSummary_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BookSummary.jsx */ "./client/src/components/BookSummary.jsx");
-
-
-
-var Summary = function Summary(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "book-summary"
-  }, props.summaries.map(function (summary, index) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BookSummary_jsx__WEBPACK_IMPORTED_MODULE_1__.default, {
-      summary: summary,
-      key: index
-    });
-  }));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Summary);
 
 /***/ }),
 
@@ -208,7 +128,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.id, "div {\n  display: block;\n}\n\nh2 {\n  color: #141414;\n  font-size: 20px;\n  font-weight: 700;\n  line-height: 26px;\n  margin-bottom: -5px;\n}\n\n.publisher-summary {\n  color: rgba(20, 20, 20, 0.65);\n  font-size: 0.9em;\n  padding: 0px;\n  font-family: \"Audible Sans\", Arial, sans-serif;\n  font-size: 15px;\n  text-align: \"center\";\n  line-height: 20px;\n  line-height: 1.4;\n}\n\nhtml {\n  font-size: 16px;\n  -webkit-text-size-adjust: 100%;\n  padding: 75px;\n  margin-top: 25px;\n}\n\n@media (max-width: 960px) {\n  .extra_content {\n    display: none;\n  }\n\n  #read_more {\n    cursor: pointer;\n    line-height: 20px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    display: inline-block;\n    color: #333;\n    border: none;\n    white-space: nowrap;\n    font: 400 14px Arial;\n    height: 40px;\n    text-align: left;\n    position: flex;\n    margin-left: -5px;\n    margin-top: -1px;\n    background-color: white;\n  }\n\n  h2 {\n    color: #141414;\n    font-weight: 700;\n    font-size: 16px;\n    font-weight: bold;\n    line-height: 18px;\n    font-family: Arial, sans-serif;\n    margin-bottom: -9px;\n    padding-bottom: 0%;\n    margin-left: 5px;\n  }\n\n  .summary-detail {\n    margin-bottom: -6px;\n    margin-top: -6px;\n  }\n\n  .publisher-summary {\n    color: #6c6b6b;\n    display: flex;\n    font-family: sans-serif, \"Audible Sans\" Arial, sans-serif;\n    font-size: 14px;\n    flex-direction: column;\n    padding-top: 0%;\n    margin-top: 15px;\n    font-family: \"Audible Sans\", Arial, sans-serif;\n    margin-top: 0%;\n    margin: 1%;\n    line-height: 1.3;\n    padding: 0px !important;\n  }\n\n  .normal {\n    -webkit-mask-image: -webkit-linear-gradient(270deg, #000 50%, transparent 100%);\n  }\n\n  .read_more:hover {\n    color: #020202;\n    text-decoration: underline;\n  }\n\n  .extra_content {\n    display: visible;\n  }\n\n  #extra_content {\n    clear: left;\n    white-space: pre-line;\n    margin-top: -8px;\n  }\n\n  .show {\n    display: block;\n    margin-top: 0px;\n  }\n\n  html {\n    padding: 15px;\n    margin-top: 25px;\n  }\n}\n.read_more {\n  display: none;\n  border: none;\n}", ""]);
+exports.push([module.id, "div {\n  display: block;\n}\n\nh2 {\n  color: #141414;\n  font-size: 20px;\n  font-weight: 700;\n  line-height: 26px;\n  margin-bottom: -5px;\n}\n\n.publisher-summary {\n  color: rgba(20, 20, 20, 0.65);\n  font-size: 0.9em;\n  padding: 0px;\n  font-family: \"Audible Sans\", Arial, sans-serif;\n  font-size: 15px;\n  text-align: \"center\";\n  line-height: 20px;\n  line-height: 1.4;\n}\n\nhtml {\n  font-size: 16px;\n  -webkit-text-size-adjust: 100%;\n  padding: 75px;\n  margin-top: 25px;\n}\n\n@media (max-width: 960px) {\n  .extra_content {\n    display: none;\n  }\n\n  #read_more {\n    cursor: pointer;\n    line-height: 20px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    display: inline-block;\n    color: #333;\n    border: none;\n    white-space: nowrap;\n    font: 400 14px Arial;\n    height: 40px;\n    text-align: left;\n    position: flex;\n    margin-left: -5px;\n    margin-top: -1px;\n    background-color: white;\n  }\n\n  h2 {\n    color: #141414;\n    font-weight: 700;\n    font-size: 16px;\n    font-weight: bold;\n    line-height: 18px;\n    font-family: Arial, sans-serif;\n    margin-bottom: -9px;\n    padding-bottom: 0%;\n    margin-left: 0px;\n  }\n\n  .summary-detail {\n    margin-bottom: -6px;\n    margin-top: -6px;\n  }\n\n  .publisher-summary {\n    color: #6c6b6b;\n    display: flex;\n    font-family: sans-serif, \"Audible Sans\" Arial, sans-serif;\n    font-size: 14px;\n    flex-direction: column;\n    padding-top: 0%;\n    margin-top: 15px;\n    font-family: \"Audible Sans\", Arial, sans-serif;\n    margin-top: 0%;\n    margin: 1%;\n    line-height: 1.3;\n    padding: 0px !important;\n  }\n\n  .normal {\n    -webkit-mask-image: -webkit-linear-gradient(270deg, #000 50%, transparent 100%);\n  }\n\n  .read_more:hover {\n    color: #020202;\n    text-decoration: underline;\n  }\n\n  .extra_content {\n    display: visible;\n  }\n\n  #extra_content {\n    clear: left;\n    white-space: pre-line;\n    margin-top: -8px;\n  }\n\n  .show {\n    display: block;\n    margin-top: 0px;\n  }\n\n  html {\n    padding: 15px;\n    margin-top: 25px;\n  }\n}\n.read_more {\n  display: none;\n  border: none;\n}", ""]);
 
 // exports
 
@@ -29080,6 +29000,9 @@ if(false) {}
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
@@ -29105,9 +29028,77 @@ if(false) {}
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/ensure chunk */
+/******/ 	(() => {
+/******/ 		__webpack_require__.f = {};
+/******/ 		// This file contains only the entry chunk.
+/******/ 		// The chunk loading function for additional chunks
+/******/ 		__webpack_require__.e = (chunkId) => {
+/******/ 			return Promise.all(Object.keys(__webpack_require__.f).reduce((promises, key) => {
+/******/ 				__webpack_require__.f[key](chunkId, promises);
+/******/ 				return promises;
+/******/ 			}, []));
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/get javascript chunk filename */
+/******/ 	(() => {
+/******/ 		// This function allow to reference async chunks
+/******/ 		__webpack_require__.u = (chunkId) => {
+/******/ 			// return url for filenames based on template
+/******/ 			return "" + chunkId + ".summary.js";
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/load script */
+/******/ 	(() => {
+/******/ 		var inProgress = {};
+/******/ 		var dataWebpackPrefix = "summary_service:";
+/******/ 		// loadScript function to load a script via script tag
+/******/ 		__webpack_require__.l = (url, done, key, chunkId) => {
+/******/ 			if(inProgress[url]) { inProgress[url].push(done); return; }
+/******/ 			var script, needAttach;
+/******/ 			if(key !== undefined) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				for(var i = 0; i < scripts.length; i++) {
+/******/ 					var s = scripts[i];
+/******/ 					if(s.getAttribute("src") == url || s.getAttribute("data-webpack") == dataWebpackPrefix + key) { script = s; break; }
+/******/ 				}
+/******/ 			}
+/******/ 			if(!script) {
+/******/ 				needAttach = true;
+/******/ 				script = document.createElement('script');
+/******/ 		
+/******/ 				script.charset = 'utf-8';
+/******/ 				script.timeout = 120;
+/******/ 				if (__webpack_require__.nc) {
+/******/ 					script.setAttribute("nonce", __webpack_require__.nc);
+/******/ 				}
+/******/ 				script.setAttribute("data-webpack", dataWebpackPrefix + key);
+/******/ 				script.src = url;
+/******/ 			}
+/******/ 			inProgress[url] = [done];
+/******/ 			var onScriptComplete = (prev, event) => {
+/******/ 				// avoid mem leaks in IE.
+/******/ 				script.onerror = script.onload = null;
+/******/ 				clearTimeout(timeout);
+/******/ 				var doneFns = inProgress[url];
+/******/ 				delete inProgress[url];
+/******/ 				script.parentNode && script.parentNode.removeChild(script);
+/******/ 				doneFns && doneFns.forEach((fn) => (fn(event)));
+/******/ 				if(prev) return prev(event);
+/******/ 			}
+/******/ 			;
+/******/ 			var timeout = setTimeout(onScriptComplete.bind(null, undefined, { type: 'timeout', target: script }), 120000);
+/******/ 			script.onerror = onScriptComplete.bind(null, script.onerror);
+/******/ 			script.onload = onScriptComplete.bind(null, script.onload);
+/******/ 			needAttach && document.head.appendChild(script);
+/******/ 		};
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
@@ -29119,6 +29110,99 @@ if(false) {}
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		__webpack_require__.p = "/";
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"main": 0
+/******/ 		};
+/******/ 		
+/******/ 		__webpack_require__.f.j = (chunkId, promises) => {
+/******/ 				// JSONP chunk loading for javascript
+/******/ 				var installedChunkData = __webpack_require__.o(installedChunks, chunkId) ? installedChunks[chunkId] : undefined;
+/******/ 				if(installedChunkData !== 0) { // 0 means "already installed".
+/******/ 		
+/******/ 					// a Promise means "currently loading".
+/******/ 					if(installedChunkData) {
+/******/ 						promises.push(installedChunkData[2]);
+/******/ 					} else {
+/******/ 						if(true) { // all chunks have JS
+/******/ 							// setup Promise in chunk cache
+/******/ 							var promise = new Promise((resolve, reject) => (installedChunkData = installedChunks[chunkId] = [resolve, reject]));
+/******/ 							promises.push(installedChunkData[2] = promise);
+/******/ 		
+/******/ 							// start chunk loading
+/******/ 							var url = __webpack_require__.p + __webpack_require__.u(chunkId);
+/******/ 							// create error before stack unwound to get useful stacktrace later
+/******/ 							var error = new Error();
+/******/ 							var loadingEnded = (event) => {
+/******/ 								if(__webpack_require__.o(installedChunks, chunkId)) {
+/******/ 									installedChunkData = installedChunks[chunkId];
+/******/ 									if(installedChunkData !== 0) installedChunks[chunkId] = undefined;
+/******/ 									if(installedChunkData) {
+/******/ 										var errorType = event && (event.type === 'load' ? 'missing' : event.type);
+/******/ 										var realSrc = event && event.target && event.target.src;
+/******/ 										error.message = 'Loading chunk ' + chunkId + ' failed.\n(' + errorType + ': ' + realSrc + ')';
+/******/ 										error.name = 'ChunkLoadError';
+/******/ 										error.type = errorType;
+/******/ 										error.request = realSrc;
+/******/ 										installedChunkData[1](error);
+/******/ 									}
+/******/ 								}
+/******/ 							};
+/******/ 							__webpack_require__.l(url, loadingEnded, "chunk-" + chunkId, chunkId);
+/******/ 						} else installedChunks[chunkId] = 0;
+/******/ 					}
+/******/ 				}
+/******/ 		};
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		// no on chunks loaded
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+/******/ 			var [chunkIds, moreModules, runtime] = data;
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			for(moduleId in moreModules) {
+/******/ 				if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 					__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 				}
+/******/ 			}
+/******/ 			if(runtime) var result = runtime(__webpack_require__);
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					installedChunks[chunkId][0]();
+/******/ 				}
+/******/ 				installedChunks[chunkIds[i]] = 0;
+/******/ 			}
+/******/ 		
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = self["webpackChunksummary_service"] = self["webpackChunksummary_service"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	})();
 /******/ 	
 /************************************************************************/
