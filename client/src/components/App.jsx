@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Summary from './Summary.jsx';
 import '../assets/styles.scss';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -15,8 +14,6 @@ class App extends React.Component {
   componentDidMount() {
     this.getBookSummary();
   }
-
-
   getBookSummary(){
   const query = new URLSearchParams(location.search);
   const bookId = query.get('bookId');
@@ -26,7 +23,6 @@ class App extends React.Component {
     .then(data =>this.setState({summaries: data}))
     .catch(err => this.setState({ summaries: [] }))
   }
-
   render() {
     if(this.state.summaries.length <= 0){
       return (
@@ -42,6 +38,5 @@ class App extends React.Component {
   }
 }
 }
-
 
 export default App;

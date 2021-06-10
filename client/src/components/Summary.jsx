@@ -4,7 +4,6 @@ import BookSummary from './BookSummary.jsx';
 const Summary = (props) => (
 
  <div className="book-summary">
-
   {
      props.summaries.map((summary, index)=>{
      return (

@@ -6,17 +6,14 @@ function changeClass() {
   var content = document.getElementById("extra_content");
   var btn = document.getElementById("read_more");
   content.classList.toggle('show');
-
   if (content.classList.contains("show")) {
       btn.innerHTML ="Show less" + '▴';
       document.getElementById("main").classList.remove("normal");
-
   } else {
       btn.innerHTML ="Show more" + '▾';
       document.getElementById("main").classList.add("normal");
   }
 }
-
 const BookSummary = (props) => {
 
 
@@ -31,8 +28,6 @@ const BookSummary = (props) => {
       </div>
     </div>
   )
-
-
 };
 
 export default BookSummary;
