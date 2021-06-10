@@ -19,16 +19,13 @@ let save = (summaryData, callback) => {
   Summary.updateOne(query, update, options, callback);
 };
 
-
 for(let i = 0; i<100; i++){
   const paragraphLength = Math.floor(Math.random() * 2 + 2);
   const shortSummarySentenceLength = Math.floor(Math.random() * 4 + 3);
   const copyrightWordsLength = Math.floor(Math.random() * 2 + 2);
-
   const summary = lorem.generateParagraphs(paragraphLength);
   const short_summary = lorem.generateSentences(shortSummarySentenceLength);
   const year = Math.floor(Math.random() * 81) + 1940;
-
   const copyright = '©' + year + ' ' + lorem.generateWords(copyrightWordsLength) + ' (P)'+(year + Math.floor(Math.random() * 5 + 4)) + ' ' + lorem.generateWords(copyrightWordsLength);
 
   const summaryData = {

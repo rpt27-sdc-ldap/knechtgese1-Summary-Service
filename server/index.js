@@ -5,7 +5,6 @@ const db = require('../database/index.js');
 
 let app = express();
 app.use(compression({threshold : 0 }))
-
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,7 +21,6 @@ app.get('/api/summary/:bookId', async (req, res) => {
   })
 });
 
-
 app.get('/api/summaries/:bookIds', async (req, res) => {
   res.set({'Access-Control-Allow-Origin': '*'})
   const ids = req.params.bookIds.split(',');
@@ -34,7 +32,6 @@ app.get('/api/summaries/:bookIds', async (req, res) => {
     }
   })
 });
-
 
 let port = process.env.port || 1220;
 
