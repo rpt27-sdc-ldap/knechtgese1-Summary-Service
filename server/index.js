@@ -10,10 +10,10 @@ app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
 app.get('/api/summary/:bookId', async (req, res) => {
   res.set({'Access-Control-Allow-Origin': '*'})
   await db.Summary.find({'id': req.params.bookId}).exec((err, result) => {
+    console.log(result);
     if (err) {
       next(err);
     } else {
