@@ -90,11 +90,8 @@ describe("App", () => {
     }, 500));
 
     expect(result.state.summaries.length).toBe(1);
-    //console.log(result.state.summaries);
     expect(result.state.summaries[0].summary).toEqual(expectedSummary);
     expect(result.state.summaries[0]).toHaveProperty(`summary`, expectedSummary);
-    //console.log(result.state.summaries);
-    //expect(fetch).toHaveBeenCalledWith('http://example.com')
   });
 
 });
