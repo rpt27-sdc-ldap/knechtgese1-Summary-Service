@@ -1,7 +1,12 @@
 # Project Publisher's Summary Service
 Demo
+![Deploy](https://github.com/huang-pei-mei/FEC-Publishers-Summary/blob/master/Final%20Audible%20Item%20Page.gif)
+
 ![Deploy](https://github.com/huang-pei-mei/FEC-Publishers-Summary/blob/master/Summary%201.jpg)
-![Deploy](https://github.com/huang-pei-mei/FEC-Publishers-Summary/blob/master/Screen%20Shot%202021-06-11%20at%2010.44.20%20PM.jpg)
+
+![Deploy](https://github.com/huang-pei-mei/FEC-Publishers-Summary/blob/master/Screen%20Shot%202021-06-12%20at%201.12.15%20PM.jpg)
+
+![Deploy](https://github.com/huang-pei-mei/FEC-Publishers-Summary/blob/master/Screen%20Shot%202021-06-12%20at%201.12.38%20PM.jpg)
 
 ## Table of Contents
 - [Project Publisher's Summary Service](#project-publishers-summary-service)
