@@ -2,7 +2,6 @@ const compression = require('compression');
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../database/index.js');
-
 let app = express();
 app.use(compression({threshold : 0 }))
 app.use(express.static(__dirname + '/../public'));
@@ -34,7 +33,6 @@ app.get('/api/summaries/:bookIds', async (req, res) => {
 });
 
 let port = process.env.port || 1220;
-
 if(!module.parent){
 app.listen(port, function () {
   console.log(`listening on port ${port}`);

@@ -14,29 +14,30 @@ class App extends React.Component {
   componentDidMount() {
     this.getBookSummary();
   }
-  getBookSummary(){
-  const query = new URLSearchParams(location.search);
-  const bookId = query.get('bookId');
-  fetch(`http://18.188.135.5:1220/api/summary/${bookId}`)
-
-    .then((response) => response.json())
-    .then(data =>this.setState({summaries: data}))
-    .catch(err => this.setState({ summaries: [] }))
+  getBookSummary() {
+    const query = new URLSearchParams(location.search);
+    const bookId = query.get('bookId');
+    fetch(`http://18.188.135.5:1220/api/summary/${bookId}`)
+      .then((response) => response.json())
+      .then(data => this.setState({ summaries: data }))
+      .catch(err => this.setState({ summaries: [] }))
   }
   render() {
-    if(this.state.summaries.length <= 0){
+    if (this.state.summaries.length <= 0) {
       return (
-        <div style={{color: "blue", padding: "25px",
-        fontFamily: "Arial", textalign:"center"}}>Oops — we can’t find the page you’re looking for. Head back to the homepage and try again with another book!</div>
+        <div style={{
+          color: "blue", padding: "25px",
+          fontFamily: "Arial", textalign: "center"
+        }}>Oops — we can’t find the page you’re looking for. Head back to the homepage and try again with another book!</div>
       )
     } else {
-    return (
-      <div>
-        <Summary summaries={this.state.summaries} />
-      </div>
-     );
+      return (
+        <div>
+          <Summary summaries={this.state.summaries} />
+        </div>
+      );
+    }
   }
-}
 }
 
 export default App;
