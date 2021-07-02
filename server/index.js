@@ -2,11 +2,12 @@ const compression = require('compression');
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../database/index.js');
+const process = require('process');
 let app = express();
 app.use(compression({threshold : 0 }))
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //READ
 app.get('/api/summary/:bookId', async (req, res) => {

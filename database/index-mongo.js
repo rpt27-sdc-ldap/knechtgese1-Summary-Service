@@ -48,9 +48,7 @@ let get = async (id) => {
 
 let update = async (id, obj) => {
   try {
-    for (key in obj) {
-      await Summary.updateOne({id: id, [key]: obj[key]})
-    }
+    await Summary.findOneAndUpdate({id: id, '$set': obj})
     return('done');
   } catch(err) {
     console.log(err);

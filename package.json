@@ -10,7 +10,9 @@
   "scripts": {
     "react-dev": "webpack --mode development --watch",
     "react-prod": "webpack --mode production",
-    "seed": "node database/populateData.js",
+    "seed-mongo": "node database/populateData.js --mongo",
+    "seed-pg": "node database/populateData.js --pg",
+    "seed-cass": "node database/populateData.js --cass",
     "server-dev": "nodemon server/index.js",
     "babel-compile": "npx babel . --out-dir compiled --presets=@babel/preset-react --ignore=node_modules,compiled --source-maps inline",
     "sass-dev": "sass --watch client/assets/styles.scss public/styles.css",
@@ -28,6 +30,7 @@
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "css": "^3.0.0",
+    "dotenv": "^10.0.0",
     "enzyme-to-json": "^3.6.2",
     "express": "^4.17.1",
     "fetch-mock": "^9.11.0",
@@ -38,12 +41,17 @@
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.5",
     "nodemon": "^2.0.7",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.4",
+    "process": "^0.11.10",
     "react": "^16.14.0",
     "react-dev": "^0.0.1",
     "react-dom": "^16.4.0",
     "react-test-renderer": "^16.4.0",
     "sass": "^1.33.0",
-    "sass-loader": "^11.1.1"
+    "sass-loader": "^11.1.1",
+    "sequelize": "^6.6.4",
+    "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.14.0",
