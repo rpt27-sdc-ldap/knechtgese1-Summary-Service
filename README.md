@@ -43,11 +43,17 @@ Node 6.13.0.
 ## Development
 The database folder includes two helper functions which generates random data and populates the generated data into the database. The first helper function which generates random data and save the generated data into the database is located in database/populateData.js file. The mongo db setup file which specifies the database schema is located in database/index.js file
 
-The App componet which includes RenderDom is located in client/src/index.js file. Using the following url `http://localhost:1220/api/summary/${bookId}` the app component fetches publisher's summary and copyright information for a given book from the server to be rendered.
+The App componet which includes RenderDom is located in client/src/index.js file. Using the following url `/api/summary/${bookId}` the app component fetches publisher's summary and copyright information for a given book from the server to be rendered.
 
 The server with two endpoints are located in server/index.js. The first endpoint is `/api/summary/:bookId` This takes a random book id and returns an object with the following data {id: Number, summary: String, short_summary: String, copyright: String}.
 
-The second endpont`http://localhost:1220/api/summaries/:bookIds` will accept array of book ids and returns an array of objects with the following data for each of the book ids {id: Number, summary: String, short_summary: String, copyright: String}
+The second endpont`/api/summaries/:bookIds` will accept array of book ids and returns an array of objects with the following data for each of the book ids {id: Number, summary: String, short_summary: String, copyright: String}
+
+Additional endpoints for further editing services are provided below:
+/api/summary/:bookId -- retrieves the record associated with the given book ID.
+/api/summary/new -- creates a new record (body of the request should include a complete record. The ID number must be included, and this should not match a pre-existing record)
+/api/summary/update/:bookId -- updates the record associated with the given book ID
+/api/summary/delete/:bookId -- deletes the record associated with the given book ID
 
 ### Usage
 Clone the repository from github into your local machine to make edits.
