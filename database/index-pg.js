@@ -1,5 +1,9 @@
 require('dotenv').config();
 const { Sequelize, DataTypes } = require('sequelize');
+const fs = require('fs').promises;
+const Promise = require('bluebird');
+const createReadStreamPromise = require('fs').createReadStream;
+const csv = require('csv');
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
   host: process.env.DB_HOST,
@@ -59,8 +63,15 @@ const Employee = sequelize.define('employee', {
 });
 
 
-
-const save = async (record) => {
+const save = async () => {
+  //const createReadStreamPromise = Promise.promisify(fs.createReadStream);
+  const input = await createReadStreamPromise('./database/summaries.csv');
+  const parser = await csv.parse({
+    delimiter: ',',
+    columns: true
+  }, (err, input) => {
+    if (err) { console.log(err) }
+    console.log('Parsed:', input)})
   try {
     await Summary.sync();
     Tag.belongsToMany(Summary, {through: 'summary_tag'});
@@ -68,14 +79,31 @@ const save = async (record) => {
     Employee.hasMany(Summary);
     Summary.belongsTo(Employee);
     await sequelize.sync();
-    let summ = await Summary.create({
-      id: record.id,
-      summary: record.summary,
-      short_summary: record.short_summary,
-      copyright: record.copyright,
-      employeeId: record.employeeId
-    });
-    await summ.addTags(record.tags);
+  } catch (err) { console.log(err) }
+  const transform = csv.transform(async (row) => {
+    let resultObj = {
+      id: row.id,
+      summary: row.summary,
+      short_summary: row.short_summary,
+      copyright: row.copyright,
+      employeeId: row.employeeId
+    };
+    try {
+      console.log('Before write', resultObj.id)
+      let summ = await Summary.create(resultObj);
+      await summ.addTags(row.tags);
+      console.log('Creating record', row.id);
+      return row.id;
+    } catch (err) { console.log(err); }
+  })
+  try {
+    await input
+      .on('error', (err) => {console.log(err)})
+      .pipe(parser)
+      .pipe(transform)
+      .on('data', async (chunk) => { return await chunk })
+      .on('error', (err) => {console.log(err)})
+      .on('end', () => { console.log('Done!'); })
   } catch (err) { console.log(err); }
 }
 
@@ -84,7 +112,7 @@ const saveTag = async (record) => {
     await Tag.sync();
     await Tag.create(record);
     console.log('Saved tag', record.id);
-  } catch (err) { console.log(err); }
+  } catch (err) { () => {console.log(err);} }
 }
 
 const saveEmployee = async (record) => {

@@ -53,7 +53,7 @@ const createEmployees = async () => {
   } catch (err) {console.log(err);}
 }
 
-const generateCSV = () => {
+const generateCSV = async () => {
   const csvFile = fs.createWriteStream('./database/summaries.csv');
   writer.pipe(csvFile);
   let ok = true;
@@ -80,59 +80,17 @@ const generateCSV = () => {
       employeeId: employeeId
     };
     if (i % 1000 === 0) { console.log('Writing', i)}
-    write();
-    function write() {
-      while (i < 1e7 - 1 && ok) {
-        if (i === 1e7 - 1) {
-          writer.write(data);
-        } else {
-          ok = writer.write(data);
-        }
-      }
-      if (i < 1e7 - 1) {
-        writer.once('drain', write);
-      }
-    };
+    if (!writer.write(data)) {
+      await new Promise (resolve => writer.once('drain', resolve));
+    }
   }
   writer.end();
 }
 
-/*
-const createSummaries = async () => {
-  try {
-    for (let i = 0; i < 10000000; i++) {
-      const paragraphLength = Math.floor(Math.random() * 2 + 2);
-      const shortSummarySentenceLength = Math.floor(Math.random() * 4 + 3);
-      const copyrightWordsLength = Math.floor(Math.random() * 2 + 2);
-      const summary = lorem.generateParagraphs(paragraphLength);
-      const short_summary = lorem.generateSentences(shortSummarySentenceLength);
-      const year = Math.floor(Math.random() * 81) + 1940;
-      const copyright = '©' + year + ' ' + lorem.generateWords(copyrightWordsLength) + ' (P)' + (year + Math.floor(Math.random() * 5 + 4)) + ' ' + lorem.generateWords(copyrightWordsLength);
-      const tagQuantity = Math.floor(Math.random() * 1) + 1; // 1-5 tags
-      const tags = [];
-      for (let j = 0; j < tagQuantity; j++) {
-        tags.push(Math.floor(Math.random() * 100)); // 100 external references to tags
-      }
-      const employeeId = Math.floor(Math.random() * 100); // 100 external employee references
-
-      const summaryData = {
-        id: i,
-        summary: summary,
-        short_summary: short_summary,
-        copyright: copyright,
-        tags: tags,
-        employeeId: employeeId
-      };
-      if (summaryData.id % 1000 === 0) { console.log('Summary', summaryData.id) }
-      await db.save(summaryData);
-    }
-  } catch (err) {console.log(err);}
-}
-*/
-
-// createTags();
-// setTimeout(createEmployees, 5000);
-setTimeout(generateCSV);
+//createTags();
+//setTimeout(createEmployees, 5000);
+//setTimeout(generateCSV, 10000);
+setTimeout(db.save);
 
 
 
