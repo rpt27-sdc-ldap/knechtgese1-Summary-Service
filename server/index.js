@@ -1,7 +1,8 @@
+require('newrelic');
 const compression = require('compression');
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('../database/index.js');
+const db = require('../database/index-pg2.js');
 const process = require('process');
 let app = express();
 app.use(compression({threshold : 0 }))
@@ -13,8 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/api/summary/:bookId', async (req, res) => {
   res.set({'Access-Control-Allow-Origin': '*'});
   try {
+    console.log('ID', req.params.bookId);
     let rec = await db.get(req.params.bookId);
-    console.log(rec);
     if (rec === undefined) {
       res.status(404).send([]);
     } else {
@@ -42,9 +43,10 @@ app.get('/api/summaries/:bookIds', async (req, res) => {
 //CREATE
 app.post('/api/summary/new', async (req, res) => {
   res.set({'Access-Control-Allow-Origin': '*'});
+  console.log(req.body);
   try {
-    await db.save([req.body]);
-    res.send('done');
+    await db.save(req.body);
+    res.send('create done');
   } catch (err) { console.log(err); }
 })
 
@@ -53,16 +55,16 @@ app.put('/api/summary/update/:bookId', async (req, res) => {
   res.set({'Access-Control-Allow-Origin': '*'});
   try {
     await db.update(req.params.bookId, req.body);
-    res.send('done');
+    res.send('update done');
   } catch (err) { console.log(err); }
 })
 
 //DELETE
-app.del('/api/summary/delete/:bookId', async (req, res) => {
+app.delete('/api/summary/delete/:bookId', async (req, res) => {
   res.set({'Access-Control-Allow-Origin': '*'});
   try {
-    await db.delete(req.params.bookId);
-    res.send('done');
+    await db.del(req.params.bookId);
+    res.send('delete done');
   } catch (err) { console.log(err); }
 })
 

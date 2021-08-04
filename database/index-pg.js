@@ -64,7 +64,6 @@ const Employee = sequelize.define('employee', {
 
 
 const save = async () => {
-  //const createReadStreamPromise = Promise.promisify(fs.createReadStream);
   const input = await createReadStreamPromise('./database/summaries.csv');
   const parser = await csv.parse({
     delimiter: ',',
@@ -89,23 +88,20 @@ const save = async () => {
       employeeId: row.employeeId
     };
     try {
-      console.log('Before write', resultObj.id)
       let summ = await Summary.create(resultObj);
       await summ.addTags(row.tags);
-      console.log('Creating record', row.id);
-      return row.id;
-    } catch (err) { console.log(err); }
+      console.log('Writing', resultObj.id);
+    } catch (err) { console.log('Write error', err); }
   })
   try {
     await input
       .on('error', (err) => {console.log(err)})
       .pipe(parser)
       .pipe(transform)
-      .on('data', async (chunk) => { return await chunk })
-      .on('error', (err) => {console.log(err)})
       .on('end', () => { console.log('Done!'); })
   } catch (err) { console.log(err); }
 }
+
 
 const saveTag = async (record) => {
   try {
