@@ -73,11 +73,13 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       var query = new URLSearchParams(location.search);
       var bookId = query.get('bookId');
-      fetch("http://18.188.135.5:1220/api/summary/".concat(bookId)).then(function (response) {
-        return response.json();
-      }).then(function (data) {
-        return _this2.setState({
-          summaries: data
+      fetch("http://localhost:1220/api/summary/".concat(bookId)).then(function (data) {
+        return data.json();
+      }).then(function (rec) {
+        console.log('record', rec);
+
+        _this2.setState({
+          summaries: [rec]
         });
       })["catch"](function (err) {
         return _this2.setState({
@@ -91,10 +93,10 @@ var App = /*#__PURE__*/function (_React$Component) {
       if (this.state.summaries.length <= 0) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           style: {
-            color: "blue",
-            padding: "25px",
-            fontFamily: "Arial",
-            textalign: "center"
+            color: 'blue',
+            padding: '25px',
+            fontFamily: 'Arial',
+            textalign: 'center'
           }
         }, "Oops \u2014 we can\u2019t find the page you\u2019re looking for. Head back to the homepage and try again with another book!");
       } else {
@@ -129,19 +131,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function changeClass() {
-  var content = document.getElementById("extra_content");
-  var btn = document.getElementById("read_more");
+var changeClass = function changeClass() {
+  var content = document.getElementById('extra_content');
+  var btn = document.getElementById('read_more');
   content.classList.toggle('show');
 
-  if (content.classList.contains("show")) {
-    btn.innerHTML = "Show less" + '▴';
-    document.getElementById("main").classList.remove("normal");
+  if (content.classList.contains('show')) {
+    btn.innerHTML = 'Show less' + '▴';
+    document.getElementById('main').classList.remove('normal');
   } else {
-    btn.innerHTML = "Show more" + '▾';
-    document.getElementById("main").classList.add("normal");
+    btn.innerHTML = 'Show more' + '▾';
+    document.getElementById('main').classList.add('normal');
   }
-}
+};
 
 var BookSummary = function BookSummary(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
