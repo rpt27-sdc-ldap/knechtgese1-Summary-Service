@@ -79,7 +79,8 @@ const save = async (record) => {
       }
       let max = await client.query('SELECT MAX(id) FROM summaries');
     }
-    await client.query('INSERT INTO summaries VALUES ($1, $2, $3, $4, $5)', [record.id, record.summary, record.short_summary, record.copyright, record.employee]);
+    await client.query('INSERT INTO summaries VALUES ($1, $2, $3, $4, $5)', [record.id, record.summary, record.short_summary, record.copyright, record.employee_id]);
+    await client.release();
   } catch (err) { console.log(err) }
 }
 
@@ -91,6 +92,7 @@ const update = async (id, record) => {
         await client.query(`UPDATE summaries SET ${key} = $1 WHERE id = $2`, [record[key], id]);
       }
     }
+    await client.release();
   } catch (err) { console.log(err); }
 }
 
@@ -99,6 +101,7 @@ const del = async (id) => {
   try {
     const client = await pool.connect();
     await client.query('DELETE FROM summaries WHERE id = $1', [id]);
+    await
   } catch (err) { console.log(err); }
 }
 
