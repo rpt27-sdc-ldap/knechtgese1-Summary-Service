@@ -101,9 +101,8 @@ const del = async (id) => {
   try {
     const client = await pool.connect();
     await client.query('DELETE FROM summaries WHERE id = $1', [id]);
-    await
-  } catch (err) { console.log(err); }
+    await client.release();
+   } catch (err) { console.log(err); }
 }
 
 module.exports = { initialize, saveTag, saveEmployee, saveSummaries, saveSummaryTag, get, save, update, del };
-//initialize, save, saveTag, saveEmployee
