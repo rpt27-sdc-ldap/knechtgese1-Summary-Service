@@ -86,10 +86,9 @@ if (!module.parent) {
   } else {
     // Workers can share any TCP connection
     // In this case it is an HTTP server
-    http.createServer((req, res) => {
-      res.writeHead(200);
-      res.end('hello world\n');
-    }).listen(port);
+    app.listen(port, () => {
+      console.log('Listening on port ' + port);
+    });
     console.log(`Worker ${process.pid} started`);
   }
 };
